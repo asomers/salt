@@ -447,7 +447,7 @@ def test_filesystem_present(utils_patch):
 
     mock_exists = MagicMock(return_value=True)
     mock_get = MagicMock(
-        return_value=OrderedDict([("myzpool/filesystem", OrderedDict([]),),])
+        return_value=OrderedDict([("myzpool/filesystem", OrderedDict([]),)])
     )
     with patch.dict(zfs.__salt__, {"zfs.exists": mock_exists}), patch.dict(
         zfs.__salt__, {"zfs.get": mock_get}
@@ -459,7 +459,7 @@ def test_filesystem_present(utils_patch):
         properties="",
         fields="value",
         parsable=True,
-        type="filesystem"
+        type="filesystem",
     )
 
 
@@ -515,7 +515,7 @@ def test_filesystem_present_properties(utils_patch):
     ), patch.dict(zfs.__utils__, utils_patch):
         assert ret == zfs.filesystem_present(
             "myzpool/filesystem",
-            properties={"type":"filesystem", "compression":"lz4" }
+            properties={"type": "filesystem", "compression": "lz4"},
         )
     mock_get.assert_called_with(
         "myzpool/filesystem",
@@ -523,7 +523,7 @@ def test_filesystem_present_properties(utils_patch):
         properties="type,compression",
         fields="value",
         parsable=True,
-        type="filesystem"
+        type="filesystem",
     )
 
 
@@ -542,12 +542,11 @@ def test_filesystem_present_update(utils_patch):
     mock_exists = MagicMock(return_value=True)
     mock_set = MagicMock(return_value=OrderedDict([("set", True)]))
     mock_get = MagicMock(
-        return_value=OrderedDict([
+        return_value=OrderedDict(
+            [
                 (
                     "myzpool/filesystem",
-                    OrderedDict([("compression", OrderedDict([("value", False)])),
-                        ]
-                    ),
+                    OrderedDict([("compression", OrderedDict([("value", False)]))]),
                 ),
             ]
         )
@@ -566,7 +565,7 @@ def test_filesystem_present_update(utils_patch):
         properties="compression",
         fields="value",
         parsable=True,
-        type="filesystem"
+        type="filesystem",
     )
 
 
@@ -613,7 +612,7 @@ def test_volume_present(utils_patch):
 
     mock_exists = MagicMock(return_value=True)
     mock_get = MagicMock(
-        return_value=OrderedDict([("myzpool/volume", OrderedDict([]),),])
+        return_value=OrderedDict([("myzpool/volume", OrderedDict([]))])
     )
     with patch.dict(zfs.__salt__, {"zfs.exists": mock_exists}), patch.dict(
         zfs.__salt__, {"zfs.get": mock_get}
@@ -625,7 +624,7 @@ def test_volume_present(utils_patch):
         properties="",
         fields="value",
         parsable=True,
-        type="volume"
+        type="volume",
     )
 
 
@@ -666,9 +665,7 @@ def test_volume_present_update(utils_patch):
             [
                 (
                     "myzpool/volume",
-                    OrderedDict([("compression", OrderedDict([("value", False)])),
-                        ]
-                    ),
+                    OrderedDict([("compression", OrderedDict([("value", False)]))]),
                 ),
             ]
         )
@@ -687,7 +684,7 @@ def test_volume_present_update(utils_patch):
         properties="compression",
         fields="value",
         parsable=True,
-        type="volume"
+        type="volume",
     )
 
 
