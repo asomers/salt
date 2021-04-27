@@ -434,7 +434,12 @@ def _dataset_present(
     if __salt__["zfs.exists"](name, **{"type": dataset_type}):
         ## NOTE: fetch current volume properties
         properties_current = __salt__["zfs.get"](
-            name, type=dataset_type, fields="value", depth=0, parsable=True,
+            name,
+            type=dataset_type,
+            fields="value",
+            depth=0,
+            parsable=True,
+            source="default,inherited,local,none,received",
         ).get(name, OrderedDict())
 
         ## NOTE: add volsize to properties
